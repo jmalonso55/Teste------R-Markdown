@@ -1,0 +1,82 @@
+---
+title: "Teste - medidas de posição"
+output: html_notebook
+---
+
+```{r}
+# Medidas de posição - Carregando os dados:
+dados <- trees
+dados
+```
+
+```{r}
+# Mínimo
+apply(dados, MARGIN = 2, min)
+```
+
+
+```{r}
+# Máximo
+apply(dados, MARGIN = 2, max)
+```
+
+
+```{r}
+# Média
+apply(dados, MARGIN = 2, mean)
+```
+
+
+```{r}
+apply(dados, MARGIN = 2, sum) / 31 # Apenas para demonstrar a função que faz somatório.
+```
+
+
+```{r}
+# Mediana
+apply(dados, MARGIN = 2, median)
+```
+
+
+```{r}
+# Moda // OBS: Não temos uma função para a moda no R, mas podemos criar
+table(dados$Height) # A função table conta a quantidade de vezes que cada valor aparece no vetor. 
+# Pode ser utilizada para fazer tabelas de contingência para dados qualitativos. Por mera observação do 
+# resultado já conseguimos identificar a moda. O que não seria tão fácil para uma base de dados grande.
+```
+
+
+```{r}
+# Criando uma função para a moda
+moda <- function(x) {
+  tab <- table(x) # Criamos um vetor para receber a frequência dos valores da variável.
+  names(tab)[tab == max(tab)] # Aqui usamos um teste lógico para identificar o valor com a maior frequência.
+} # Veja os comandos de maneira separada para entender:
+names(table(dados$Height)) # Retorna uma lista dos valores observados.
+tab <- table(dados$Height); tab == max(tab) # Testa se cada valor é o que apresenta a maior frequência.
+moda(dados$Height) # Testamos a função e ela funciona!
+```
+
+
+```{r}
+apply(dados, MARGIN = 2, moda) # Podemos fazer o loop.
+```
+
+
+```{r}
+# Apenas para ilustrar, podemos ordernar os dados, o que nos permitiria encontrar a mediana e a moda:
+sort(dados$Height) # O default é em ordem crescente.
+```
+
+
+```{r}
+sort(dados$Height, decreasing = TRUE) # Existe um argumento na função que permite colocar em ordem decrescente.
+```
+
+
+```{r}
+apply(dados, MARGIN = 2, sort) # Loop.
+```
+
+
+```
